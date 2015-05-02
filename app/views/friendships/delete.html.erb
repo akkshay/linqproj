@@ -1,0 +1,7 @@
+<h1>Delete a friend, <%= @user.name %>!</h1>
+
+<%= simple_form_for @deletee, :url => friend_destroy_path, :class => "btn btn-info" do |f| %>
+  <%= f.input :name %>
+  <%= f.button :submit, "Remove Friend" %>
+<% end %>
+

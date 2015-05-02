@@ -1,0 +1,6 @@
+<h1>Add a new friend, <%= @user.name %>!</h1>
+
+<%= simple_form_for @invitee, :url => friend_create_path do |f| %>
+  <%= f.input :name %>
+  <%= f.button :submit, "Add" %>
+<% end %>

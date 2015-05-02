@@ -1,0 +1,67 @@
+
+<div class = "row fluid">
+	<div class = "span6 well">
+
+
+	
+<% if current_user %>	
+	<%= current_user.name %>
+	<%= button_to "Create a New Link!", new_user_link_path(user_id: current_user.id), :class => "btn btn-info", :method => :get %>
+
+	<% @links = Link.all %>
+	<br>
+	<h2>Your links:</h2>
+	<br>
+	<% @links.each do |l| %>
+	        <% if l.user_id == current_user.id %>
+	        		Title: <%= l.title %>
+	        		<br>
+	                URL:  <%= l.url %>
+	                <br>
+	                Points: <%= l.points %>
+	                <br>
+	               <%= button_to "Send a Link!", pre_send_path(sender_id: current_user.id, link_id: l.id), :class => "btn btn-info", :method => :patch %>
+	               <br>
+	               <br>
+	        <% end %>
+	<% end %>
+	<h2>Links Received:</h2>
+	<% @user = current_user %>
+	<% if @user.received %>
+		<% @user.received.each do |link_id| %>
+		<% @link = Link.find(link_id) %>
+		<% @link.receivers.each do |arr| %>
+			<% if arr[0]  == @user.id %>
+				<% sender_id = arr[1] %>
+				Title: <%= @link.title %> 
+				<br>
+				URL: <%= @link.url %>
+				<br>
+				Sender: <%= (User.find(sender_id)).name %>
+				<br>
+				Link creator: <%= User.find(@link.user_id).name %>
+				<br>
+				Points: <%= @link.points %>
+				<br>
+				<%= button_to "Send a Link!", pre_send_path(sender_id: current_user.id, link_id: @link.id), :class => "btn btn-info", :method => :patch %>
+				<br>
+				<br>
+				<% break %>
+			<% end %>
+		<% end %> 
+	<% end %>
+<% end %>
+	<h2>Your Friends are Waiting</h2>
+	<%= button_to "View Friends!", friends_path, :class => "btn btn-info", :method => :get %>
+
+
+<% else %>
+	<h3>Welcome to Linq!</h3>
+    <h4>Linq is a quick and fun way to share all sorts of media with your friends. You can share music, videos, articles, photos, and more! All you need is the link. Share links with friends, discard ones you don't like, and circulate ones you do to gather more points.</h4>
+	</BR>
+	<div align = "center">
+		<%= link_to "Login", new_user_session_path %> or <%= link_to "Sign Up", new_user_registration_path %> to get started!
+	</div>      
+<% end %>
+	</div>
+</div>

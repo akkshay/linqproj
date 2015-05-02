@@ -1,0 +1,32 @@
+<% if @friends.count == 0 %>
+	<h2> You currently have no friends</h2>
+	<%= button_to "Add a Friend!", new_friend_path(user_id: current_user.id), :class => "btn btn-info", :method => :get %>
+<% else %>
+	<h2>You have <%= @friends.count %> friend(s).</h2>
+	<% @friends.each do |t| %>
+		<%= t.name %>
+	<% end %>
+	<%= button_to "Add more Friends!", new_friend_path(user_id: current_user.id), :class => "btn btn-info", :method => :get %>
+<% end %>
+
+<% if @user.pending_invited_by.count == 0 %>
+	<h3> You currently have no friend requests</h2>
+<% else %>
+	<h3> You have <%= @user.pending_invited_by.count %> friend request(s) </h3>
+	<% @user.pending_invited_by.each do |t| %>
+		<%= t.name %>
+		<%= button_to "Accept!", friend_path(id: t.id, user_id: current_user.id), :class => "btn btn-info", :method => :patch %>
+	<% end %>
+<%end %>
+
+<% if @user.pending_invited.count == 0 %>
+	<h3> You currently have no pending friend approval</h2>
+<% else %>
+	<h3> You have sent out<%= @user.pending_invited.count %> friend request(s) </h3>
+	<% @user.pending_invited_by.each do |t| %>
+		<%= t.name %>
+	<% end %>
+<%end %>
+
+<h2> Dont Like Someone?</h2>
+	<%= button_to "Remove a Friend!", friend_delete_path(user_id: current_user.id), :class => "btn btn-info", :method => :delete %>

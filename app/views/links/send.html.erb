@@ -1,0 +1,6 @@
+<h1>Send link</h1>
+
+<%= simple_form_for @link, :method=>"patch" do |f| %>
+  <%= f.input :user_name %>
+  <%= f.button :submit, "Send" %>
+<% end %>

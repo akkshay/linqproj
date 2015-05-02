@@ -1,0 +1,15 @@
+<h1>Send link</h1>
+
+<%= simple_form_for @link, :url => send_path(link_id: @link.id, sender_id: current_user.id, username: @username) do |f| %>
+  <%= text_field_tag :username %>
+  <%= submit_tag 'Send' %>
+<% end %>
+
+<!--<%= form_tag send_path, method: :patch do %>
+  <%= text_field_tag :user_name %>
+  <%= submit_tag 'Send' %>
+<% end %>-->
+
+<!--<%= text_field_tag(:username) %>
+<%= debug params %>
+<%= button_to "Send", send_path(link_id: @link.id, sender_id: current_user.id, username: @username), :method => :patch %>-->

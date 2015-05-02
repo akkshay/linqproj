@@ -1,0 +1,23 @@
+<h1>User</h1>
+
+<p>Name: <%= @user.name if @user.name %></p>
+<% if @user.received %>
+	<% @user.received.each do |link_id| %>
+		<% @link = Link.find(link_id) %>
+		<% @link.receivers.each do |arr| %>
+			<% if arr[0]  == @user.id %>
+				<% sender_id = arr[1] %>
+				Title: <%= @link.title %> 
+				<br>
+				URL: <%= @link.url %>
+				<br>
+				Sender: <%= (User.find(sender_id)).name %>
+				<br>
+				Points: <%= @link.points %>
+				<br>
+				<% break %>
+			<% end %>
+
+		<% end %> 
+	<% end %>
+<% end %>

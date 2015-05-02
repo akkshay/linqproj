@@ -1,0 +1,14 @@
+
+<div class = "row fluid">
+	<div class = "span6 well">
+<h3>A New Link for <%= @user.name %></h3>
+
+<%= simple_form_for @link, :url => user_links_path do |f| %>
+  <%= f.input :title %>
+  <%= f.input :url %>
+  <%= f.button :submit, "Create" %>
+<% end %>
+
+
+</div>
+</div>
